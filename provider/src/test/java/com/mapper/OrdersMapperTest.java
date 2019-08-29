@@ -12,11 +12,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class OrderMapperTest extends ProviderTest {
+public class OrdersMapperTest extends ProviderTest {
 
 
     @Autowired
-    OrderMapper orderMapper;
+    private OrdersMapper ordersMapper;
 
     @Test
     public void getOrderInfo() {
@@ -25,13 +25,13 @@ public class OrderMapperTest extends ProviderTest {
         selectOrderDTO.setUserId(1);
         selectOrderDTO.setProductName("西");
 
-        List<OrderVO> orderInfo = orderMapper.getOrderInfo(selectOrderDTO);
+        List<OrderVO> orderInfo = ordersMapper.getOrderInfo(selectOrderDTO);
         System.out.println();
     }
 
     @Test
     public void getOrderStatus(){
-        List<OrderStatus> orderStatus = orderMapper.getOrderStatus();
+        List<OrderStatus> orderStatus = ordersMapper.getOrderStatus();
         System.out.println();
 
     }

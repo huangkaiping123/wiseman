@@ -3,6 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd](http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
+
+
+
     <select id="getUserByPhoneNumber" parameterType="String" resultType="com.pojo.User">
         select
             user_id userId,
@@ -13,9 +16,10 @@
             user_create userCreate,
             user_status userStatus
             user_email userEmail
-        from users
+        from user
         where user_phone = #{phoneNumber}
     </select>
+
     <select id="getUserByEmail" parameterType="String" resultType="com.pojo.User">
         select
         user_id userId,
@@ -26,8 +30,166 @@
         user_create userCreate,
         user_status userStatus
         user_email userEmail
-        from users
+        from user
         where user_phone = #{Email}
     </select>
 
+
+
+
+
+    <resultMap id="BaseResultMap" type="com.pojo.User">
+        <id column="user_id" jdbcType="TINYINT" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+        <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+        <result column="user_create" jdbcType="TIMESTAMP" property="userCreate" />
+        <result column="user_status" jdbcType="SMALLINT" property="userStatus" />
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        user_id, user_name, user_phone, user_address, user_code, user_create, user_status,
+        user_email
+    </sql>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where user_id = #{userId,jdbcType=TINYINT}
+    </select>
+
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from user
+        where user_id = #{userId,jdbcType=TINYINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.pojo.User">
+        insert into user (user_id, user_name, user_phone,
+        user_address, user_code, user_create,
+        user_status, user_email)
+        values (#{userId,jdbcType=TINYINT}, #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR},
+        #{userAddress,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{userCreate,jdbcType=TIMESTAMP},
+        #{userStatus,jdbcType=SMALLINT}, #{userEmail,jdbcType=VARCHAR})
+    </insert>
+
+
+    <insert id="insertSelective" parameterType="com.pojo.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userPhone != null">
+                user_phone,
+            </if>
+            <if test="userAddress != null">
+                user_address,
+            </if>
+            <if test="userCode != null">
+                user_code,
+            </if>
+            <if test="userCreate != null">
+                user_create,
+            </if>
+            <if test="userStatus != null">
+                user_status,
+            </if>
+            <if test="userEmail != null">
+                user_email,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=TINYINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null">
+                #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userCreate != null">
+                #{userCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userStatus != null">
+                #{userStatus,jdbcType=SMALLINT},
+            </if>
+            <if test="userEmail != null">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.pojo.User">
+        update user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone != null">
+                user_phone = #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null">
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userCreate != null">
+                user_create = #{userCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userStatus != null">
+                user_status = #{userStatus,jdbcType=SMALLINT},
+            </if>
+            <if test="userEmail != null">
+                user_email = #{userEmail,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=TINYINT}
+    </update>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.pojo.User">
+        update user
+        set user_name = #{userName,jdbcType=VARCHAR},
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+        user_address = #{userAddress,jdbcType=VARCHAR},
+        user_code = #{userCode,jdbcType=VARCHAR},
+        user_create = #{userCreate,jdbcType=TIMESTAMP},
+        user_status = #{userStatus,jdbcType=SMALLINT},
+        user_email = #{userEmail,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=TINYINT}
+    </update>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

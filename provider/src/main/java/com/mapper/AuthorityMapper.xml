@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.AuthorityMapper">
+
+
+
+  <resultMap id="BaseResultMap" type="com.pojo.Authority">
+    <id column="auth_name_id" jdbcType="TINYINT" property="authNameId" />
+    <result column="auth_describe" jdbcType="VARCHAR" property="authDescribe" />
+  </resultMap>
+
+
+
+  <sql id="Base_Column_List">
+    auth_name_id, auth_describe
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where auth_name_id = #{authNameId,jdbcType=TINYINT}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from authority
+    where auth_name_id = #{authNameId,jdbcType=TINYINT}
+  </delete>
+
+
+
+  <insert id="insert" parameterType="com.pojo.Authority">
+    insert into authority (auth_name_id, auth_describe)
+    values (#{authNameId,jdbcType=TINYINT}, #{authDescribe,jdbcType=VARCHAR})
+  </insert>
+
+
+
+  <insert id="insertSelective" parameterType="com.pojo.Authority">
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authNameId != null">
+        auth_name_id,
+      </if>
+      <if test="authDescribe != null">
+        auth_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authNameId != null">
+        #{authNameId,jdbcType=TINYINT},
+      </if>
+      <if test="authDescribe != null">
+        #{authDescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Authority">
+    update authority
+    <set>
+      <if test="authDescribe != null">
+        auth_describe = #{authDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where auth_name_id = #{authNameId,jdbcType=TINYINT}
+  </update>
+
+
+
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Authority">
+    update authority
+    set auth_describe = #{authDescribe,jdbcType=VARCHAR}
+    where auth_name_id = #{authNameId,jdbcType=TINYINT}
+  </update>
+
+
+
+</mapper>

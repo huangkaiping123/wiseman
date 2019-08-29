@@ -11,4 +11,16 @@ public interface UserMapper {
 
     //通过邮箱查询user
     User getUserByEmail(String Email);
+
+    int deleteByPrimaryKey(Integer userId);
+
+    int insert(User record);
+
+    int insertSelective(User record);
+
+    User selectByPrimaryKey(Integer userId);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
 }

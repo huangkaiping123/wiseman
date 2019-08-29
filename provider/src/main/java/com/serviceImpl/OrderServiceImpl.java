@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.dto.SelectOrderDTO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mapper.OrderMapper;
+import com.mapper.OrdersMapper;
 import com.pojo.OrderStatus;
 import com.service.OrderService;
 import com.vo.OrderVO;
@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    OrderMapper orderMapper;
+    private OrdersMapper orderMapper;
 
     public PageInfo<OrderVO> getOrderInfo(SelectOrderDTO selectOrderDTO) {
         PageHelper.startPage(selectOrderDTO.getPage(),selectOrderDTO.getLimit());

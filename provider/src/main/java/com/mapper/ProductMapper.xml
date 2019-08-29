@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ProductMapper">
+
+
+  <resultMap id="BaseResultMap" type="com.pojo.Product">
+    <id column="product_id" jdbcType="TINYINT" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="procuct_stock" jdbcType="INTEGER" property="procuctStock" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_status" jdbcType="TINYINT" property="productStatus" />
+    <result column="product_pic" jdbcType="VARCHAR" property="productPic" />
+  </resultMap>
+
+
+
+  <sql id="Base_Column_List">
+    product_id, product_name, procuct_stock, product_price, product_status, product_pic
+  </sql>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where product_id = #{productId,jdbcType=TINYINT}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where product_id = #{productId,jdbcType=TINYINT}
+  </delete>
+
+
+
+  <insert id="insert" parameterType="com.pojo.Product">
+    insert into product (product_id, product_name, procuct_stock, 
+      product_price, product_status, product_pic
+      )
+    values (#{productId,jdbcType=TINYINT}, #{productName,jdbcType=VARCHAR}, #{procuctStock,jdbcType=INTEGER}, 
+      #{productPrice,jdbcType=DECIMAL}, #{productStatus,jdbcType=TINYINT}, #{productPic,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+
+  <insert id="insertSelective" parameterType="com.pojo.Product">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="procuctStock != null">
+        procuct_stock,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productStatus != null">
+        product_status,
+      </if>
+      <if test="productPic != null">
+        product_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=TINYINT},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="procuctStock != null">
+        #{procuctStock,jdbcType=INTEGER},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=TINYINT},
+      </if>
+      <if test="productPic != null">
+        #{productPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Product">
+    update product
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="procuctStock != null">
+        procuct_stock = #{procuctStock,jdbcType=INTEGER},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=TINYINT},
+      </if>
+      <if test="productPic != null">
+        product_pic = #{productPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=TINYINT}
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Product">
+    update product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      procuct_stock = #{procuctStock,jdbcType=INTEGER},
+      product_price = #{productPrice,jdbcType=DECIMAL},
+      product_status = #{productStatus,jdbcType=TINYINT},
+      product_pic = #{productPic,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=TINYINT}
+  </update>
+
+</mapper>

@@ -1,8 +1,11 @@
 package com.serviceImpl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.service.SendService;
 
-public class MailServiceImpl implements SendService {
+
+@Service
+public class SendServiceImpl implements SendService {
     public void sendmail(String mail,String code) {
 
     }
